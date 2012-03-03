@@ -15,12 +15,12 @@ domain_id = nil
 record_id = nil
 
 # Authenticate / Get API Token
-auth_url = auth_url + account
 response = RestClient.post auth_url, {'credentials' => {'username' => username, 'key' => apikey}}.to_json, :content_type => :json, :accept => :json
 parsed = JSON.parse(response.body)
 token = parsed['auth']['token']['id']
 
 # Get List of domains from RS DNS
+dns_url = dns_url + account
 domain_list = RestClient.get dns_url + "/domains", :content_type => :json, :accept => :json, :X_Auth_Token => token
 parsed = JSON.parse(domain_list.body)
 parsed['domains'].each do |domain|
